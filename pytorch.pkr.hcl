@@ -15,17 +15,17 @@ variable "headless" {
 
 variable "iso_checksum" {
   type    = string
-  default = "sha256:d699ae158ec028db69fd850824ee6e14c073b02ad696b4efb8c59d37c8025aaa"
+  default = "sha256:9f8a0d84b81a1d481aafca2337cb9f0c1fdf697239ac488177cf29c97d706c25"
 }
 
 variable "iso_url" {
   type    = string
-  default = "https://cloud-images.ubuntu.com/jammy/20230719/jammy-server-cloudimg-amd64.img"
+  default = "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
 }
 
 variable "name" {
   type    = string
-  default = "jammy"
+  default = "ubuntu"
 }
 
 variable "ram" {
@@ -99,4 +99,5 @@ build {
     environment_vars = ["IMAGE_NAME=${var.name}", "IMAGE_VERSION=${var.version}", "IMAGE_FORMAT=${var.format}"]
     script           = "scripts/prepare-image.sh"
   }
+
 }
