@@ -62,7 +62,7 @@ packer {
   }
 }
 
-source "qemu" "jammy" {
+source "qemu" "pytorch" {
   accelerator      = "kvm"
   boot_command     = []
   disk_compression = true
@@ -88,7 +88,7 @@ source "qemu" "jammy" {
 }
 
 build {
-  sources = ["source.qemu.jammy"]
+  sources = ["source.qemu.pytorch"]
 
   provisioner "shell" {
     execute_command = "{{ .Vars }} sudo -E bash '{{ .Path }}'"
@@ -96,8 +96,7 @@ build {
   }
 
   post-processor "shell-local" {
-    environment_vars = ["IMAGE_NAME=${var.name}", "IMAGE_VERSION=${var.version}", "IMAGE_FORMAT=${var.format}"]
-    script           = "scripts/prepare-image.sh"
+    script           = "scripts/app.sh"
   }
 
 }
