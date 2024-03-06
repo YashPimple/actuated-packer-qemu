@@ -25,7 +25,7 @@ variable "iso_url" {
 
 variable "name" {
   type    = string
-  default = "ubuntu"
+  default = "jammy"
 }
 
 variable "ram" {
@@ -62,7 +62,7 @@ packer {
   }
 }
 
-source "qemu" "pytorch" {
+source "qemu" "jammy" {
   accelerator      = "kvm"
   boot_command     = []
   disk_compression = true
@@ -88,7 +88,7 @@ source "qemu" "pytorch" {
 }
 
 build {
-  sources = ["source.qemu.pytorch"]
+  sources = ["source.qemu.jammy"]
 
   provisioner "shell" {
     execute_command = "{{ .Vars }} sudo -E bash '{{ .Path }}'"
@@ -96,7 +96,7 @@ build {
   }
 
   post-processor "shell-local" {
+    environment_vars = ["IMAGE_NAME=${var.name}", "IMAGE_VERSION=${var.version}", "IMAGE_FORMAT=${var.format}"]
     script           = "scripts/app.sh"
   }
-
 }
